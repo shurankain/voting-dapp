@@ -7,10 +7,10 @@ import {BankrunProvider, startAnchor} from "anchor-bankrun";
 describe('voting', () => {
 
   const IDL = require('../target/idl/votingdapp.json');
-  const VotingAddress = new PublicKey("AsjZ3kWAUSQRNt2pZVeJkywhZ6gpLpHZmJjduPmKZDZZ");
+  const VOTING_ADDRESS = new PublicKey("AsjZ3kWAUSQRNt2pZVeJkywhZ6gpLpHZmJjduPmKZDZZ");
 
   it('Initialize Poll', async () => {
-    const context = await startAnchor("", [{name: "Voting", programId: VotingAddress}], []);
+    const context = await startAnchor("", [{name: "Voting", programId: VOTING_ADDRESS}], []);
     const provider = new BankrunProvider(context)
 
     const votingProgram = new Program<Votingdapp>(
