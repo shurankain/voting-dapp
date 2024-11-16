@@ -14,10 +14,10 @@ pub mod votingdapp {
                             poll_start: u64,
                             poll_end: u64) -> Result<()> {
         let poll = &mut ctx.accounts.poll;
-        poll.id = poll_id;
+        poll.poll_id = poll_id;
         poll.description = description;
-        poll.start = poll_start;
-        poll_end = poll_end;
+        poll.poll_start = poll_start;
+        poll.poll_end = poll_end;
         poll.candidate_amount = 0;
         Ok(())
     }
