@@ -4,13 +4,13 @@ import {PublicKey} from '@solana/web3.js'
 import {Votingdapp} from '../target/types/votingdapp'
 import {BankrunProvider, startAnchor} from "anchor-bankrun";
 
-describe('voting', () => {
+describe('votingdapp', () => {
 
   const IDL = require('../target/idl/votingdapp.json');
   const VOTING_ADDRESS = new PublicKey("AsjZ3kWAUSQRNt2pZVeJkywhZ6gpLpHZmJjduPmKZDZZ");
 
   it('Initialize Poll', async () => {
-    const context = await startAnchor("", [{name: "Voting", programId: VOTING_ADDRESS}], []);
+    const context = await startAnchor("", [{name: "votingdapp", programId: VOTING_ADDRESS}], []);
     const provider = new BankrunProvider(context)
 
     const votingProgram = new Program<Votingdapp>(
