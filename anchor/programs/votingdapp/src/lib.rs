@@ -7,12 +7,12 @@ declare_id!("AsjZ3kWAUSQRNt2pZVeJkywhZ6gpLpHZmJjduPmKZDZZ");
 #[program]
 pub mod votingdapp {
     use super::*;
-  
+
     pub fn initialize_poll(ctx: Context<InitializePoll>,
-                            poll_id: u64,
-                            description: String,
-                            poll_start: u64,
-                            poll_end: u64) -> Result<()> {
+                           poll_id: u64,
+                           description: String,
+                           poll_start: u64,
+                           poll_end: u64) -> Result<()> {
         let poll = &mut ctx.accounts.poll;
         poll.poll_id = poll_id;
         poll.description = description;
@@ -53,7 +53,7 @@ pub struct Vote<'info> {
         seeds = [poll_id.to_le_bytes().as_ref(), candidate_name.as_bytes()],
         bump
     )]
-    pub candidate: Account<'info, Candidate>
+    pub candidate: Account<'info, Candidate>,
 }
 
 #[derive(Accounts)]
@@ -74,7 +74,7 @@ pub struct InitializeCandidate<'info> {
         bump
     )]
     pub candidate: Account<'info, Candidate>,
-    pub system_program: Program<'info, System>
+    pub system_program: Program<'info, System>,
 }
 
 #[account]
@@ -98,7 +98,7 @@ pub struct InitializePoll<'info> {
         bump
     )]
     pub poll: Account<'info, Poll>,
-    pub system_program: Program<'info, System>
+    pub system_program: Program<'info, System>,
 }
 
 #[account]
