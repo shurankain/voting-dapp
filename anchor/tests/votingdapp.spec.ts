@@ -45,4 +45,33 @@ describe('votingdapp', () => {
     expect(poll.description).toEqual("What is the best type of coffee?");
     expect(poll.pollStart.toNumber()).toBeLessThan(poll.pollEnd.toNumber());
   })
+
+  it('Initialize Candidate', async () => {
+    await votingProgram.methods.initializeCandidate(
+        "Arabica",
+        new anchor.BN(1),
+    ).rpc();
+
+    await votingProgram.methods.initializeCandidate(
+        "Robusta",
+        new anchor.BN(1),
+    ).rpc();
+
+    const [arabicaAddress] = PublicKey.findProgramAddressSync(
+        [new anchor.BN(1).toArrayLike(Buffer, 'le', 8), Buffer.from("Arabica")],
+        VOTING_ADDRESS
+    )
+    const [robustaAddress] = PublicKey.findProgramAddressSync(
+        [new anchor.BN(1).toArrayLike(Buffer, 'le', 8), Buffer.from("Robusta")],
+        VOTING_ADDRESS
+    )
+
+    const arabicaCandidate = await votingProgram.account.candidate.fetch(arabicaAddress);
+    console.log(arabicaCandidate);
+    const robustaCandidate = await votingProgram.account.candidate.fetch(robustaAddress);
+    console.log(robustaCandidate);
+
+    expect(arabicaCandidate.candidateVotes.toNumber()).toEqual(0);
+    expect(robustaCandidate.candidateVotes.toNumber()).toEqual(0);
+  })
 })
