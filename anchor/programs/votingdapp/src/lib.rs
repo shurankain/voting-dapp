@@ -22,9 +22,12 @@ pub mod votingdapp {
         Ok(())
     }
 
-    pub fn initialize_candidate(_ctx: Context<InitializeCandidate>,
-                                _candidate_name: String,
+    pub fn initialize_candidate(ctx: Context<InitializeCandidate>,
+                                candidate_name: String,
                                 _poll_id: u64) -> Result<()> {
+        let candidate = &mut ctx.accounts.candidate;
+        candidate.candidate_name = candidate_name;
+        candidate.candidate_votes = 0;
         Ok(())
     }
 }
