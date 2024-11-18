@@ -74,4 +74,21 @@ describe('votingdapp', () => {
         expect(arabicaCandidate.candidateVotes.toNumber()).toEqual(0);
         expect(robustaCandidate.candidateVotes.toNumber()).toEqual(0);
     })
+
+    it('Vote', async () => {
+        await votingProgram.methods.vote(
+            "Arabica",
+            new anchor.BN(1),
+        ).rpc();
+
+        const [arabicaAddress] = PublicKey.findProgramAddressSync(
+            [new anchor.BN(1).toArrayLike(Buffer, 'le', 8), Buffer.from("Arabica")],
+            VOTING_ADDRESS
+        )
+
+        const arabicaCandidate = await votingProgram.account.candidate.fetch(arabicaAddress);
+        console.log(arabicaCandidate);
+
+        expect(arabicaCandidate.candidateVotes.toNumber()).toEqual(1);
+    })
 })
