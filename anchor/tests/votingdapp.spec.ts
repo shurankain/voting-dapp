@@ -10,15 +10,21 @@ describe('votingdapp', () => {
   const IDL = require('../target/idl/votingdapp.json');
   const VOTING_ADDRESS = new PublicKey("AsjZ3kWAUSQRNt2pZVeJkywhZ6gpLpHZmJjduPmKZDZZ");
 
+  let context;
+  let provider;
+  let votingProgram: Program<Votingdapp>;
+
+  beforeAll(async () => {
+      context = await startAnchor("", [{name: "votingdapp", programId: VOTING_ADDRESS}], []);
+      provider = new BankrunProvider(context)
+
+      votingProgram = new Program<Votingdapp>(
+          IDL,
+          provider
+      );
+  });
+
   it('Initialize Poll', async () => {
-    const context = await startAnchor("", [{name: "votingdapp", programId: VOTING_ADDRESS}], []);
-    const provider = new BankrunProvider(context)
-
-    const votingProgram = new Program<Votingdapp>(
-        IDL,
-        provider
-    );
-
     await votingProgram.methods.initializePoll(
         new anchor.BN(1),
         "What is the best type of coffee?",
