@@ -1,24 +1,24 @@
 import * as anchor from '@coral-xyz/anchor'
 import {Program} from '@coral-xyz/anchor'
 import {PublicKey} from '@solana/web3.js'
-import {Votingdapp} from '../target/types/votingdapp'
+import {Voting} from '../target/types/voting'
 import {BankrunProvider, startAnchor} from "anchor-bankrun";
 import {Buffer} from "buffer";
 
-describe('votingdapp', () => {
+describe('voting', () => {
 
-    const IDL = require('../target/idl/votingdapp.json');
-    const VOTING_ADDRESS = new PublicKey("AsjZ3kWAUSQRNt2pZVeJkywhZ6gpLpHZmJjduPmKZDZZ");
+    const IDL = require('../target/idl/voting.json');
+    const VOTING_ADDRESS = new PublicKey("Er37AJCjLgRxniR5dufQpm42ZjiwARpZqDunHBHwz5wU");
 
     let context;
     let provider;
-    let votingProgram: Program<Votingdapp>;
+    let votingProgram: Program<Voting>;
 
     beforeAll(async () => {
-        context = await startAnchor("", [{name: "votingdapp", programId: VOTING_ADDRESS}], []);
+        context = await startAnchor("", [{name: "voting", programId: VOTING_ADDRESS}], []);
         provider = new BankrunProvider(context)
 
-        votingProgram = new Program<Votingdapp>(
+        votingProgram = new Program<Voting>(
             IDL,
             provider
         );

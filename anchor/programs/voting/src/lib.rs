@@ -2,10 +2,10 @@
 
 use anchor_lang::prelude::*;
 
-declare_id!("AsjZ3kWAUSQRNt2pZVeJkywhZ6gpLpHZmJjduPmKZDZZ");
+declare_id!("Er37AJCjLgRxniR5dufQpm42ZjiwARpZqDunHBHwz5wU");
 
 #[program]
-pub mod votingdapp {
+pub mod voting {
     use super::*;
 
     pub fn initialize_poll(ctx: Context<InitializePoll>,
